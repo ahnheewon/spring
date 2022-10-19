@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.java.emp.mapper.EmpMapper">
-	
-	<select id="getEmp" parameterType="com.yedam.java.emp.service.EmpVO" resultType="com.yedam.java.emp.service.EmpVO">
-	
-	SELECT  employee_id,
-	        first_name,
-	        last_name,
-	        email,
-	        hire_date,
-	        job_id,
-	        salary
-	        
-  	FROM employees
- 	WHERE employee_id = #{employee_id}
-	
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.yedam.java.emp.mapper.EmpMapper"> <!-- mapper를 구성할 때 내용을 담을 곳 -->
+<!-- namespace에는 내가 연결하고자 하는 interface의 (경로 포함)이름을 넣는다. -->
+
+	<!-- 전체 조회 -->
+	<select id="getEmpList" resultType="EmpVO">
+	<!-- 매개변수가 없으므로 parameterType이 필요없음. -->
+		SELECT * FROM employees
+	<!-- Mybatis는 컴파일 해주진 않아서 SQL 문법체크를 해주지 않는다. -->
 	</select>
+
 </mapper>

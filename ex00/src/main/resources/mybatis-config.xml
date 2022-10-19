@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  <settings>
+  <!-- 컬럼명을 카멜표기법으로 -->
+  <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 대소문자 하이픈문제 자동 해결 -->
+  
+  <!-- 서버에서 DB로 빈 값을 보냈을 때 (null문제) -->
+  <setting name="jdbcTypeForNull" value="NULL"/> <!-- NULL 대문자로 해야 함.  -->
+  </settings>
+  
+  <typeAliases>
+	<!-- parameterType="EmpVO" resultType="EmpVO" -->
+	<package name="com.yedam.java.emp.service"/>
+	<!-- 해당 패키지안에 있는 클래스에 대해서 클래스 명만 사용해도 알아서 찾아온다 -->
+  </typeAliases>
+  
+  <typeHandlers>
+   <!-- java.sql.Timestamp를 java.util.Date 형으로 변환 함. -->
+   <typeHandler javaType="java.sql.Date" handler="org.apache.ibatis.type.DateTypeHandler"/>
+  </typeHandlers>
+  
+	<mappers>
+		<mapper class="com.yedam.java.emp.mapper.EmpMapper"/>
+	</mappers>
+  </configuration>

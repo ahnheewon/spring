@@ -5,7 +5,8 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>/WEB-INF/spring/*-context.xml</param-value>
+		<!-- -context.xml 파일이 많으므로 *-context.xml로 표기 -->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
