@@ -41,15 +41,15 @@ public class EmpMapperTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void empInserTest() {
 		
 		//employeeId는 selectKey로 지정되어있다.
 		EmpVO empVO = new EmpVO();
-		empVO.setFirstName("Kil-dong");
-		empVO.setLastName("Hong");
-		empVO.setEmail("kdHong12@google.com");
-		empVO.setPhoneNumber("010-1234-5678");
+		empVO.setFirstName("go-dong");
+		empVO.setLastName("kong");
+		empVO.setEmail("kgdong@google.com");
+		empVO.setPhoneNumber("010-1234-2222");
 		empVO.setJobId("IT_PROG");
 		empVO.setSalary(15000);
 		
@@ -72,18 +72,26 @@ public class EmpMapperTest {
 		assertEquals(result,1); // 1행 실행 완료, 에서 그 숫자 1 확인
 	}
 	
-	@Test
+	//@Test
 	public void updateEmpInfoTest() {
 		EmpVO empVO = new EmpVO(); // 업데이트할 바구니 생성
 		empVO.setEmployeeId(207);
-		empVO.setFirstName("KO KO");
+		empVO.setFirstName("rO rO");
 		//empVO.setLastName("Ki Ki"); 
 		// 이렇게 필요한 부분만 업데이트도 가능하다
-		empVO.setEmail("koko@naver.com");
+		empVO.setEmail("RoRo@naver.com");
 		
 		int result = mapper.updateEmpInfo(empVO);
 		assertEquals(result,1); // 1행 실행 완료, 에서 그 숫자 1 확인
 		
+	}
+	
+	//@Test
+	public void empSelectOne() {
+		EmpVO empVO = new EmpVO();
+		empVO.setFirstName("Steven");
+		EmpVO selected = mapper.getEmp(empVO);
+		assertNotNull(selected);
 	}
 	
 }
