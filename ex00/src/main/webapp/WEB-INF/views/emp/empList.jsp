@@ -30,6 +30,7 @@ padding: 0px;
 					<th>직업</th>
 					<th>급여</th>
 					<th>부서번호</th>
+					<th>삭제</th>
 					</tr>
 				</thead>
 				
@@ -44,6 +45,7 @@ padding: 0px;
 							<td>${empInfo.jobId }</td>
 							<td>${empInfo.salary }</td>
 							<td>${empInfo.departmentId }</td>
+							<td><button type="button" id="dBtn">직원삭제</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -55,23 +57,46 @@ padding: 0px;
 		</form>
 	</div>
 	
-	<script>
+	
+	
+	<script type="text/javascript">
+	
 	let message = '${msg}';
 	if(message != null && message != '') {
 	// 사원 등록할 때만 뜨도록
 	alert(message); 
 	}
 	
-	$('#dataList td').click(function(){
+	 $('#dataList td').click(function(){
 		let empId =$(this).parent().attr('name');
 		$('#input > input ').val(empId);
 		$('#input').prop('action','info')
 					.prop('method','get') // post방식할 때 이런식으로 쓰세요 
 					.submit();
-		});
+		}); 
+	 
 	</script>
 	
+	<script>
 	
+	$('#dBtn').click(function(){
+		let empId =$(this).closest('tr').attr('name');
+		//closet:조상 중에(위로) 가장 가까운 태그
+		
+	 	$.ajax({
+	 		
+	 		url : 'delete/'+empId, //이렇게 안쓰면 key value로 묶임..
+	 		success : function(data){
+	 			console.log(typeof data);
+	 		},
+	 		error : function(reject){
+	 		console.log(reject);
+		}
+			})
+		return false; // 이벤트가 전달되지 않도록.
+
+		});
+	</script>
 	
 	<script type="text/javascript">
 	 /*

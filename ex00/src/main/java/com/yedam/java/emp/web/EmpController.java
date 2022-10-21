@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.java.emp.service.EmpService;
@@ -69,5 +71,20 @@ public class EmpController {
 			ratt.addAttribute("msg","변경 실패");
 		}
 		return "redirect:allList"; //상대경로
+	}
+	
+	@GetMapping("delete/{empId}") // 필드에 담기는게 아님.
+	@ResponseBody //비동기식으로 진행할거라서.
+	public String empDelete(@PathVariable int empId) {
+		
+		int result = empService.deleteEmpInfo(empId);
+		String message = null;
+		if (result == 1 ) {
+			message="사원번호 : "+empId + ", 정상적으로 삭제 되었습니다.";
+		}
+		else {
+			message="삭제 실패";
+		}
+		return message;
 	}
 }
