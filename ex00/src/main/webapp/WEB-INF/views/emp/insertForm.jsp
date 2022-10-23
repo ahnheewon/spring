@@ -39,7 +39,7 @@
 		
 		<div>
 			<button type="submit">등록</button>
-			<button type="resert">취소</button>
+			<button type="reset">취소</button>
 		</div>
 	
 	

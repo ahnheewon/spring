@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>   
     
 <!DOCTYPE html>
 <html>
@@ -45,7 +44,7 @@ padding: 0px;
 							<td>${empInfo.jobId }</td>
 							<td>${empInfo.salary }</td>
 							<td>${empInfo.departmentId }</td>
-							<td><button type="button" id="dBtn">직원삭제</button></td>
+							<td><button type="button" id="deleteBtn">직원삭제</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -60,6 +59,34 @@ padding: 0px;
 	
 	
 	<script type="text/javascript">
+		
+		$('td #deleteBtn').click(function(){ //★★ 왜 td가 안붙으면 인식을 못하는거지?
+			
+			
+		let empId =$(this).closest('tr').attr('name');
+
+		//closest:JQuery -> 조상 중에(위로) 가장 가까운 태그
+		console.log(empId);
+	 	
+	 	$.ajax({		
+	 		url : 'delete/'+empId, //이렇게 안쓰면 key value로 묶임..
+	 		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	 		//★★★★한글깨짐 방지 해도 안되는데 무슨이유???
+	 		success : function(data){ //data=> return된 message	
+	 			console.log(typeof data);
+	 			alert(data); 
+	 		},
+	 		error : function(reject){
+	 		console.log(reject);
+	 		alert(data);
+		}
+			})
+ 		return false; // 이 밑으로 이벤트가 전달되지 않도록.
+		});
+	</script>
+	
+	
+	 <script type="text/javascript">
 	
 	let message = '${msg}';
 	if(message != null && message != '') {
@@ -73,30 +100,12 @@ padding: 0px;
 		$('#input').prop('action','info')
 					.prop('method','get') // post방식할 때 이런식으로 쓰세요 
 					.submit();
+		return false; // 이벤트가 전달되지 않도록.
 		}); 
 	 
 	</script>
 	
-	<script>
-	
-	$('#dBtn').click(function(){
-		let empId =$(this).closest('tr').attr('name');
-		//closet:조상 중에(위로) 가장 가까운 태그
-		
-	 	$.ajax({
-	 		
-	 		url : 'delete/'+empId, //이렇게 안쓰면 key value로 묶임..
-	 		success : function(data){
-	 			console.log(typeof data);
-	 		},
-	 		error : function(reject){
-	 		console.log(reject);
-		}
-			})
-		return false; // 이벤트가 전달되지 않도록.
 
-		});
-	</script>
 	
 	<script type="text/javascript">
 	 /*
