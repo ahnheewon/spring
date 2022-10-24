@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
+	<bean id="logAop" class="com.yedam.java.test.service.LogAop"></bean> <!-- 빈 등록 완료 -->
+	
+	<aop:config>
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut expression="within(com.yedam.java.test.service.*)" id="public"/>
+			<aop:around method="loggerAop" pointcut-ref="public"/>
+		</aop:aspect>
+	</aop:config> 	<!-- aop 설정 완료 -->
+	<!-- 이 aop:config 코드로 인해 서로 전혀 관련 없는 클래스들이 마치 하나의 클래스처럼 동작하게 된다. -->
 
+	<bean id="myCat" class="com.yedam.java.test.service.Cats">
+		<property name="name" value="호랑이"	/>
+		<property name="age" value="1"	/>
+		<property name="color" value="yellow"	/>
+	
+	</bean>
+	
 </beans>
