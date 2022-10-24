@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.book.mapper.BookMapper">
+
+	 	<!-- 입력될 게시글 번호 조회 -->
+	<select id="getMaxNo" resultType="int">
+		SELECT NVL(MAX(book_no),0) + 1 AS bookNo
+		FROM BOOK_TBL_06
+	</select>
+
+	<select id="getBook" resultType="BookVO">
+		SELECT *
+		FROM BOOK_TBL_06
+		WHERE BOOK_NO=#{bookNo}
+	</select>
+	
+	<select id="getBookList" resultType="BookVO">
+		SELECT * FROM BOOK_TBL_06
+		ORDER BY BOOK_NO
+	</select>
+
+	<insert id="insertBook" parameterType="BookVO" >
+		<selectKey keyProperty="bookNo" order="BEFORE" resultType="int">
+			select NVL(max(BOOK_NO),0) + 1 from BOOK_TBL_06
+		</selectKey>
+		INSERT INTO BOOK_TBL_06
+		(
+		BOOK_NO,
+		BOOK_NAME,
+		BOOK_COVERING,
+		BOOK_DATE,
+		BOOK_PRICE,
+		BOOK_PUBLISHER,
+		BOOK_INFO
+		)
+		VALUES (
+		#{bookNo},
+		#{bookName},
+		#{bookCovering},
+		#{bookDate},
+		#{bookPrice},
+		#{bookPublisher},
+		#{bookInfo}
+		)
+	</insert>
+</mapper>
