@@ -1,5 +1,8 @@
 package com.yedam.java.emp.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,17 +78,19 @@ public class EmpController {
 	
 	@GetMapping("delete/{empId}") // 필드에 담기는게 아님.
 	@ResponseBody //비동기식으로 진행할거라서.
-	public String empDelete(@PathVariable int empId) {
+	public Map<String, String> empDelete(@PathVariable int empId) {
 		
 		int result = empService.deleteEmpInfo(empId);
-		String message = null;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
 		if (result == 1 ) {
-			message="사원번호 : "+empId + ", 정상적으로 삭제 되었습니다.";
+			map.put("msg","삭제 성공");
 		}
 		else {
-			message="삭제 실패";
+			map.put("msg","삭제 실패");
 		}
-		return message;
+		return map;
 	}
 	
 	

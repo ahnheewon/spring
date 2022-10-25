@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedam.ahw.user.mapper.UserMapper">
+
+       <select id="selectUserList" resultType="UserVO">
+       SELECT *
+       FROM users
+       </select>
+       
+       <!-- 단건 조회 -->
+	<select id="getUser" parameterType="UserVO" resultType="UserVO">
+	<!-- 동작하는데에는 문제없지만 이런 경우 parameterType도 적어준다.
+		단, resultType은 필수! // resultType과 resultMap은 동시에 쓸 수 없다. -->
+		SELECT *
+		FROM users
+		<where> 
+		<if test="userId != 0">
+		user_id = #{userId}
+		</if>
+		<if test="userName != null and !userName.equals('')">
+		AND user_name = #{userName}
+		<!-- 만약 employee_id는 안적고 firstName만 조회한다면
+				mybatis는 알아서 AND를 생략해줍니다 -->
+		</if>
+		</where>
+		<!-- 이렇게 update절 뿐만 아니라 
+			select문도 where절에서 다이나믹 SQL이 가능합니다	-->
+		
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="userInsert" parameterType="UserVO">
+				
+			INSERT INTO users
+								(user_id, 
+								user_name, 
+								user_password, 
+								user_nick,
+								user_phone,
+								user_email,
+								user_type,
+								user_date)
+							
+						VALUES (#{userId},
+								#{userName},
+								#{userPassword},
+								#{userNick},
+								#{userPhone},
+								#{userEmail},
+								#{userType},
+								#{userDate})
+			<!-- 되도록 mybatis 쓸 때는 insert values 다 적어 주세요. 헷갈리지 않게 -->
+			
+	</insert>
+       
+       
+</mapper>

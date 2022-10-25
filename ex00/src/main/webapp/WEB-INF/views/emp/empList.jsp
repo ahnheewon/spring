@@ -70,15 +70,14 @@ padding: 0px;
 	 	
 	 	$.ajax({		
 	 		url : 'delete/'+empId, //이렇게 안쓰면 key value로 묶임..
-	 		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-	 		//★★★★한글깨짐 방지 해도 안되는데 무슨이유???
-	 		success : function(data){ //data=> return된 message	
+	 		//★★★★한글깨짐 방지 해도 안되는데 무슨이유??? -> utf-8문제가 아니라.. response entity
+	 		success : function(data){ //data=> return된 map
 	 			console.log(typeof data);
-	 			alert(data); 
+	 			alert(data.msg); 
 	 		},
 	 		error : function(reject){
 	 		console.log(reject);
-	 		alert(data);
+	 		alert(data.msg);
 		}
 			})
  		return false; // 이 밑으로 이벤트가 전달되지 않도록.
