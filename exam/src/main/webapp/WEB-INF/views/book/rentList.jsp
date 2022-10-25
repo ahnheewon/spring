@@ -30,29 +30,26 @@ width: 70px;
 		<table>
 				<thead>
 					<tr>
+					<th>대여번호</th>
 					<th>도서번호</th>
-					<th>도서명</th>
-					<th>표지</th>
-					<th>출판일자</th>
-					<th>금액</th>
-					<th>출판사</th>
-					<th>도서소개</th>
+					<th>대여금액</th>	
+					<th>대여일자</th>
+					<th>대여상태</th>
+
 					</tr>
 				</thead>
 				
 				<tbody>
 					<c:forEach items="${list}" var="books"> <!-- 꺼내올 items, 담을 그릇이름 empInfo -->
-					<!-- list[0].bookNo 이런 식으로 노가다 안하려고 var="books" 쓴겁니다. -->
-						<tr  name="${books.bookNo }">
+						<tr  name="${books.rentNo }">
 						<!-- onclick="location.href='info?employeeId=${empInfo.employeeId}'" 
 							이런 형식은 post방식으로 불가능. // 값을 넘기는 제일 쉬운 방식 ^^ -->
+							
+							<td>${books.rentNo }</td>
 							<td>${books.bookNo }</td>
-							<td>${books.bookName }</td>
-							<td><img src="<c:url value='/resources/images/${books.bookCovering }'/>"></td>
-							<td><fmt:formatDate value="${books.bookDate }" pattern="yyyy/MM/dd"/></td>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${books.bookPrice }"/> </td>
-							<td>${books.bookPublisher }</td>
-							<td>${books.bookInfo }</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${books.rentPrice }"/> </td>
+							<td><fmt:formatDate value="${books.rentDate }" pattern="yyyy/MM/dd"/></td>
+							<td>${books.rentStatus }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -32,7 +32,7 @@ public class BookController {
 
 	// 목록
 	@RequestMapping("/bookList")
-	public String empList(Model model) {
+	public String bookList(Model model) {
 		model.addAttribute("list", service.getBookList());
 		return "book/bookList";
 	}
@@ -41,7 +41,12 @@ public class BookController {
 	//등록-폼
 		@GetMapping("/bookInsert")
 		public String insertForm(Model model,BookVO VO) {
-			model.addAttribute("no",service.getMaxNo());
+			model.addAttribute("no",service.getMaxNo()); 
+			
+			// VO로 보낼지 아님 VO.객체 형태로 보내는지에 따라 
+			// jsp쓰임새가 달라진다. ${no }로 쓰느냐, ${no.bookNo}로 쓰느냐..
+			// 물론 후자가 더 다양한 값을 보낼 수 있어서 편하긴 함.
+			
 			return "book/bookInsertForm";
 		}
 		
@@ -56,6 +61,13 @@ public class BookController {
 		service.insertBook(vo);
 		ratt.addFlashAttribute("msg","도서등록이 완료되었습니다.");
 		return "redirect:/bookList";
+	}
+	
+	// 목록
+	@RequestMapping("/rentList")
+	public String rentList(Model model) {
+		model.addAttribute("list", service.getRentList());
+		return "book/rentList";
 	}
 
 

@@ -3,7 +3,7 @@
 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
 	<div class="sb-sidenav-menu">
 		<div class="nav">
-			<div class="sb-sidenav-menu-heading">Web</div>
+			<div class="sb-sidenav-menu-heading">메뉴</div>
 			<a class="nav-link" href="${pageContext.request.contextPath}/bookInsert">
 				<div class="sb-nav-link-icon">
 					<i class="fas fa-tachometer-alt"></i>
@@ -25,7 +25,7 @@
 			</a>
 			
 			<a class="nav-link"
-				href="${pageContext.request.contextPath}/home">
+				href="${pageContext.request.contextPath}">
 				<div class="sb-nav-link-icon">
 					<i class="fas fa-tachometer-alt"></i>
 				</div> 홈으로

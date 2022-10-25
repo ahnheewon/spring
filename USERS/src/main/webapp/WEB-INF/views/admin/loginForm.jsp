@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+#frm {
+margin-left : 600px;
+}
 </style>
 </head>
 <body>

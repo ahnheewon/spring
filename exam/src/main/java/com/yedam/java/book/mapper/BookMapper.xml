@@ -18,6 +18,11 @@
 		SELECT * FROM BOOK_TBL_06
 		ORDER BY BOOK_NO
 	</select>
+	
+	<select id="getRentList" resultType="RentVO">
+		SELECT * FROM RENT_TBL_06
+		ORDER BY RENT_NO
+	</select>
 
 	<insert id="insertBook" parameterType="BookVO" >
 		<selectKey keyProperty="bookNo" order="BEFORE" resultType="int">
