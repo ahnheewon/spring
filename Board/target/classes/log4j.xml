@@ -32,9 +32,15 @@
 		<level value="info" />
 	</logger>
 
+	<logger name="com.zaxxer">
+		<level value="warn" />
+	</logger>
+	
+	<!-- 안보고 싶은 로그 warn -->
+	
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
 	

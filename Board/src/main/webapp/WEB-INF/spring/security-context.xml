@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http pattern="/css/**" security="none" />
+	
+	<bean id="successHandler" class="com.yedam.java.security.CustomLoginSuccessHandler"></bean>
+	<security:http>
+		<security:intercept-url pattern="/top.jsp" 		access="permitAll()" />
+		<security:intercept-url pattern="/login.jsp" 	access="permitAll()" />
+		<security:intercept-url pattern="/login" 		access="permitAll()" />
+		
+		<security:intercept-url pattern="/admin/**" 	access="hasAuthority('ROLE_ADMIN')" />
+		<!-- permitAll(): /top.jsp 아무나 접근가능
+			 커스텀 login 페이지에 이 permitAll() 안넣어주면... 무한 리다이렉션...
+			 hasAuthority('ROLE_ADMIN'): /admin/** 접근시, 권한이 'ROLE_ADMIN'인 경우 허가 -->
+			
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+			<!-- ** => 나머지 제외한 사항은 로그인해야만 허가 -->
+			
+		<security:form-login 
+			login-page="/login.jsp"
+			username-parameter="userId"
+			login-processing-url="/login"
+			authentication-success-handler-ref="successHandler"
+										default-target-url="/top.jsp"
+		 />
+		 <!-- login-page="내가 만든 jsp" -->
+		<security:logout logout-url="/logout"
+			logout-success-url="/top.jsp" />
+		<security:access-denied-handler error-page="/accessDenied.jsp"/>
+		<!-- 모든 페이지는 처음에 / 꼭 적어주세요 -->
+			
+		<security:csrf disabled="true" /> <!-- disabled="true" 토큰생성 중지 -->
+		
+	
+	
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="select LOGIN_ID, PASSWORD, 1
+ 									 from T_USER
+									 where LOGIN_ID = ?" 
+			
+			authorities-by-username-query="select LOGIN_ID, ROLE_NAME
+										   from T_ROLE
+										   inner join T_USER_ROLE on T_ROLE.ID = T_USER_ROLE.ROLE_ID
+										   inner join T_USER on T_USER_ROLE.USER_ID = T_USER.ID
+										   where LOGIN_ID = ?"
+																								/>
+			<!-- users-by-username-query : 로그인 체크 쿼리 -->
+			<!-- authorities-by-username-query : role 체크 쿼리 -->
+			
+			<security:password-encoder hash="bcrypt"/> <!-- 이걸로 암호화 했다는 것을 알려줘야 합니다. -->
+			
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
