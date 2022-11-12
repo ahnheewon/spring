@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<!--  실질적으로 tiles 묶어주는 ...실행    -->
+
+<tiles-definitions>
+	<definition name="mainTemplate" template="/WEB-INF/views/tiles/layout.jsp"> 
+	 												<!-- webapp이 루트, 골격 -->
+			
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/home.jsp"/>
+
+	</definition>
+
+	<definition name="home" extends="mainTemplate"> 
+							<!-- 기존에 적은 definition 재사용하겠다는 의미. -->
+							<!-- "home" -> HomeController에서 return되는 이름.-->
+							<!-- 반환할때 이 재사용된거 쓰면 안됩니다. -->
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/home.jsp"/>
+	</definition>
+	
+	<definition name="*/*" template="/WEB-INF/views/tiles/layout.jsp"> 
+		
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+												<!-- 동적으로 tiles 구성 -->
+	</definition>
+
+</tiles-definitions>
