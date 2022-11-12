@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ajaxBoard"></ul> 
+    <!-- 서버에서 받아온 데이터 넣을 공간 -->
+    <!-- 값을 못받아오면 @CrossOrigin("*") 해주는 거 체크해주세요!!! -->
+    <script>
+        fetch("/java/freeBoard/ajax/list")
+        /* 같은 서버 안이면 이렇게 경로에 localhost~ 없어도 돼요. */
+        .then(res=>res.json())
+        .then(obj=>{
+            console.log(obj);
+            
+            for(ob of obj){
+            document.getElementById("ajaxBoard").innerHTML +=
+            `<li>${ob.title}</li>`;
+            
+            }
+        })
+    </script>
+</body>
+</html>
