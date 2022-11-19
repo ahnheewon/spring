@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		url:'/list'
+	}).then(result =>{ //success보다 간편한 promise 방식.
+		console.log(typeof result);
+		console.log(result);
+		list.innerHTML = result.name
+		// 페이지를 그냥 div안에 넣을 수 있음.
+		// tab이나 팝업페이지에 유용.
+	})
+	
+	//등록 이벤트
+	$("#btn").on("click",function(){
+		url:'/regInsert',
+		method :'post',
+		data : $('#frm').serialize() 
+	}).then(result =>{
+		console.log(result);	
+	})
+}) // jQuery가 편한 이유 serialize() 
+</script>
+</head>
+<body>
+
+<h3>회원관리</h3>
+회원리스트
+<div id="list"></div>
+<form action="/userRegProc"
+	  id="frm"
+	  method="post" 
+	  enctype="multipart/form-data">
+	<input name="name" value="hong">
+	<input name="hobby" value="read">
+	<input name="hobby" value="game">
+	<input name="age" value=""> <!-- integer.parseInt('') 에러뜬다. 
+		 							그냥 null값 적고 싶으면 VO에서 타입을 Integer로 하면 된다. -->
+	
+	<input name="pic" type="file">
+	<input name="birth" type="text">
+	<button type="button">등록</button>
+	<!-- button type default : submit -->
+</form>
+
+<h3>2</h3>
+<form action="/userRegListVO" method="get">
+	<input name="userlist[0].name" value="hong"> 
+	<input name="userlist[0].age" value="21">
+	<br>
+	<input name="userlist[1].name" value="choi">
+	<input name="userlist[1].age" value="30"><br>
+	<button>등록</button>
+	<!-- json으로 보내면 그냥 name써도 돼요 -->
+</form>
+
+</body>
+</html>

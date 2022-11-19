@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h3>1</h3>
+<form action="/userRegProc" method="post" enctype="multipart/form-data">
+	<input name="name" value="hong">
+	<input name="hobby" value="read">
+	<input name="hobby" value="game">
+	<input name="age" value=""> 
+	<!-- integer.parseInt('') 에러뜬다. 
+		 그냥 null값 적고 싶으면 VO에서 타입을 Integer로 하면 된다. -->
+	
+	<input name="pic" type="file">
+	<input name="birth" type="text">
+	<button>등록</button>
+</form>
+
+<h3>2</h3>
+<form action="/userRegListVO" method="get">
+	<input name="userlist[0].name" value="hong"> 
+	<input name="userlist[0].age" value="21">
+	<br>
+	<input name="userlist[1].name" value="choi">
+	<input name="userlist[1].age" value="30"><br>
+	<button>등록</button>
+	<!-- json으로 보내면 그냥 name써도 돼요 -->
+</form>
+
+</body>
+</html>

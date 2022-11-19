@@ -5,9 +5,6 @@ import java.util.Map;
 
 public interface FBService {
 	
-	//입력될 게시글 조회
-	public int getBoardNo();
-	
 	//전체조회
 	public List<FBVO> selectBoardList();
 	
@@ -22,5 +19,8 @@ public interface FBService {
 	
 	//삭제
 	public Map deleteBoardInfo(FBVO fbVO);
+	
+	//입력될 게시글 조회
+	public int getBoardNo();
 	
 }

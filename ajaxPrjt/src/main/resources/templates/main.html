@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+메인페이지
+<!-- 커맨드 객체 갖다 쓸 때는 앞글자 소문자로 쓰기. -->
+[[${userVO}]]<br>
+[[${param.page}]]<br>
+[[${param.search}]]<br>
+[[${msg}]]
+
+
+<script type="text/javascript">
+if('[[${msg}]]' != '')
+alert('[[${msg}]]');
+// addFlashAttribute => 새로고침하면 사라지는 휘발성이 있음.
+// 그래서 이 조건문은 한번만 실행되고 [[${msg}]]는 사라지게됨..
+// 등록완료 한 번만 주고 싶을 때 유용할듯?
+		
+</script>
+</body>
+</html>
